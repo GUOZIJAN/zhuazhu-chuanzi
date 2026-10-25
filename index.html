@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f0f0f" />
+  <title>抓住串子｜直播间观察游戏</title>
+  <meta name="description" content="抓住串子：在模拟直播间里点击可疑弹幕，挑战简单、困难、地狱三档难度。" />
+  <meta property="og:title" content="抓住串子｜直播间观察游戏" />
+  <meta property="og:description" content="点击弹幕抓住串子，挑战三档难度。" />
+  <meta property="og:image" content="https://guozijan.github.io/zhuazhu-chuanzi/assets/cover-1200x900.png" />
+  <link rel="icon" type="image/jpeg" href="./assets/icon-500x500.jpg" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand"><span class="menu-icon">☰</span><span class="playmark">▶</span><span class="brand-name">YouTube<span class="cn">模拟</span></span></div>
+    <div class="search-shell"><span>結川ユイナ ライブ</span><span class="search-icon">⌕</span></div>
+    <div class="header-right"><span class="top-pill">抓住串子</span><span class="top-avatar">玩</span></div>
+  </header>
+
+  <main class="page">
+    <section class="main-column">
+      <div class="player" aria-label="使用玩家提供截图的模拟直播画面">
+        <img class="stream-shot is-active" data-expression="calm" src="./assets/stream-shot.png" alt="结川结奈直播截图，左侧为 COMMENTS 区域，右侧为主播画面" />
+        <img class="stream-shot" data-expression="smile" src="./assets/stream-smile.png" alt="" aria-hidden="true" />
+        <img class="stream-shot" data-expression="happy" src="./assets/stream-happy.png" alt="" aria-hidden="true" />
+        <div class="stream-comments" id="streamComments" aria-label="直播画面中的弹幕"></div>
+        <div class="live-tag"><span class="live-dot"></span> LIVE · 游戏模拟</div>
+        <button class="audio-toggle" id="audioToggle" type="button" aria-label="关闭直播原声" aria-pressed="true">🔊 直播原声</button>
+        <audio id="streamAudio" src="./assets/live-ambience.mp3" preload="metadata" loop></audio>
+        <div class="player-bottom"><span>▶</span><span id="clock">00:00</span><div class="progress-track"><div id="progressFill"></div></div><span>◖))</span><span>⛶</span></div>
+      </div>
+
+      <div class="video-meta">
+        <h1>〖雑談〗結川ユイナ / Yuikawa Yuina · 抓住串子</h1>
+        <div class="stream-stats"><span><b id="viewerCount">1,286</b> 人正在观看</span><span>粉丝制作 · 模拟直播</span></div>
+        <div class="channel-row"><div class="channel-avatar">💌</div><div class="channel-name"><strong>結川ユイナ / Yuikawa Yuina</strong><small>直播间观察游戏</small></div><button class="subscribe" id="subscribeButton" type="button">订阅</button><div class="meta-actions"><button type="button" id="likeButton">♡ <span id="likes">2.4万</span></button><button type="button" id="shareButton">↗ 分享</button></div></div>
+      </div>
+
+      <section class="game-panel" aria-label="游戏状态">
+        <div class="game-panel-top"><div><span class="eyebrow">LIVE MODERATION GAME</span><h2>抓住串子</h2><p>本关规则：中文除单纯打招呼外都要抓；日文按内容判断。</p></div><div class="heat-ring" id="heatRing"><span>热度</span><strong id="heatValue">30</strong></div></div>
+        <div class="metrics"><div><span>抓中</span><strong id="caughtValue">0</strong></div><div><span>误抓</span><strong id="falseValue">0</strong></div><div><span>漏抓</span><strong id="missedValue">0</strong></div><div><span>连击</span><strong id="comboValue">×0</strong></div></div>
+        <div class="instruction"><span class="instruction-icon">◎</span><span>直接点击可见弹幕即抓住。弹幕离开画面会自动放行。日文弹幕附中文翻译。</span></div>
+        <div class="creator-credit"><span>游戏制作 <b>@-会飞的蝈蝈-</b> <small>UID 443211651</small></span><a href="https://space.bilibili.com/443211651" target="_blank" rel="noopener noreferrer">打开我的 B 站主页 ↗</a></div>
+      </section>
+      <div class="disclaimer">粉丝制作的模拟游戏，与主播、所属团体及 YouTube 无关联。部分弹幕文字取自玩家提供的录屏；用户名已隐去。游戏判定只执行本关规则，不推断真实发言者的国籍或意图。</div>
+    </section>
+
+    <aside class="chat-panel" aria-label="直播聊天">
+      <div class="chat-top"><strong>实时聊天</strong><span class="mobile-hud" id="miniHud">热度 30 · 简单</span><span class="chat-menu">⋮</span></div>
+      <div class="chat-notice"><span>✦</span><div>欢迎来到直播间！<small>点弹幕抓住；滑出视野自动放行。</small></div></div>
+      <div class="chat-list" id="chatList" aria-live="polite"></div>
+      <div class="chat-bottom"><div class="fake-input">正在观察弹幕… <span>☺</span></div><div class="chat-footer"><span>已进行 <b id="timeValue">00:00</b></span><span id="chatCount">0 / 0</span></div></div>
+    </aside>
+  </main>
+
+  <div class="toast" id="toast" role="status"></div>
+  <div class="overlay hidden" id="startOverlay"><div class="modal start-modal"><span class="modal-kicker">💌 直播间观察挑战</span><h2>抓住串子</h2><p id="roundIntro">本局随机抽取 48 条弹幕，全部滚动完才结算。抓中越多，直播间热度越高。</p><div class="rule-grid"><div><span>01</span><strong>看语言</strong><small>中文仅单纯招呼放行</small></div><div><span>02</span><strong>点一下</strong><small>点击可见弹幕立即抓住</small></div><div><span>03</span><strong>留意滚动</strong><small>离开视野就自动放行</small></div></div><div class="difficulty-picker" role="group" aria-label="选择难度"><span>选择难度 · 弹幕速度</span><div><button class="selected" type="button" data-difficulty="simple" aria-pressed="true">简单</button><button type="button" data-difficulty="hard" aria-pressed="false">困难</button><button type="button" data-difficulty="hell" aria-pressed="false">地狱</button></div></div><button class="primary-button" id="startButton" type="button">进入直播间 →</button><small class="fiction-note">取材于玩家提供的录屏与模拟台词；游戏规则不代表对真实观众的判断。</small></div></div>
+  <div class="overlay hidden" id="tutorialOverlay" aria-label="新手教程"><div class="modal tutorial-modal"><span class="modal-kicker">第一次进入 · 新手教程</span><div class="tutorial-count" id="tutorialCount">1 / 3</div><div class="tutorial-art" id="tutorialArt" aria-hidden="true"></div><h2 id="tutorialTitle"></h2><p id="tutorialText"></p><div class="tutorial-controls"><button class="secondary-button" id="tutorialSkip" type="button">跳过教程</button><button class="primary-button" id="tutorialNext" type="button">下一步 →</button></div></div></div>
+  <div class="overlay hidden" id="resultOverlay"><div class="modal result-modal"><span class="modal-kicker">直播结束 · MODERATION REPORT</span><div class="grade" id="resultGrade">A</div><h2 id="resultTitle">很会抓串！</h2><p id="resultLine"></p><div class="result-stats"><div><span>最终热度</span><strong id="resultHeat">0</strong></div><div><span>抓中 / 目标</span><strong id="resultCaught">0 / 0</strong></div><div><span>误抓</span><strong id="resultFalse">0</strong></div><div><span>最高连击</span><strong id="resultCombo">0</strong></div></div><button class="primary-button" id="makeShareButton" type="button">生成分享战绩图片</button><button class="secondary-button" id="restartButton" type="button">选择难度再来一场 ↻</button><button class="text-button" id="copyButton" type="button">复制文字战绩</button></div></div>
+  <div class="overlay hidden" id="shareOverlay"><div class="modal share-modal"><button class="modal-close" id="closeShareButton" type="button" aria-label="关闭">×</button><span class="modal-kicker">SHARE YOUR RESULT</span><h2>分享战绩</h2><p id="shareStatus">正在生成图片和游戏二维码…</p><img id="sharePreview" class="share-preview" alt="抓住串子战绩分享图" /><div class="share-actions"><button class="primary-button" id="sharePictureButton" type="button" disabled>分享图片</button><button class="secondary-button" id="savePictureButton" type="button" disabled>保存图片</button></div></div></div>
+  <div class="rotate-overlay hidden" id="rotateOverlay"><div class="rotate-card"><div class="rotate-icon" aria-hidden="true">↻</div><h2>请横屏游玩</h2><p>横屏能看清直播画面和弹幕。请旋转手机；如果已锁定方向，可以尝试自动切换。</p><button class="primary-button" id="requestLandscapeButton" type="button">尝试切换横屏</button><button class="secondary-button" id="continuePortraitButton" type="button">暂时竖屏体验</button><small id="rotateStatus"></small></div></div>
+  <script src="./assets/qrcode.js"></script>
+  <script src="./game.js"></script>
+</body>
+</html>
